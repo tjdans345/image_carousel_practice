@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -39,6 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
   // dispose() 는 State 가 사라질 때 실행 된다.
   @override
   void dispose() {
+    // 웬만한 컨트롤러는 다 dispose 하여 메모리릭을 방지해주는게 좋다.
+    pageController.dispose();
     if(timer != null) {
       timer!.cancel();
     }
@@ -47,6 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // SystemChrome.setSystemUIOverlayStyle 을 이용하여 앱과 관련이 없는 시스템 상태바의 색도 바꿀 수 있다
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return Scaffold(
       body: PageView(
         controller: pageController,
